@@ -60,7 +60,14 @@ fontLoader.load(
         textGeometry.center()
         
         const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
-        const text = new THREE.Mesh(textGeometry, material)
+        
+        const textureLoader = new THREE.TextureLoader()
+        const grassTexture = textureLoader.load('/Users/Frazier/Documents/Cinema 4D Files/Textures/ground textures 04/tex/Ground (7).jpg')
+        
+        
+        const grassMaterial = new THREE.MeshBasicMaterial({ map: grassTexture })
+        
+        const text = new THREE.Mesh(textGeometry, grassMaterial)
         scene.add(text)
 
         console.time('donuts')
@@ -90,23 +97,6 @@ fontLoader.load(
 
     }
 )
-
-
-
-
-/**
- * Object
- */
-// const cube = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 1, 1),
-//     new THREE.MeshBasicMaterial()
-// )
-
-// scene.add(cube)
-
-/**
- * Sizes
- */
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -126,6 +116,19 @@ window.addEventListener('resize', () =>
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
+gui.add(ambientLight, 'intensity').min(0).max(1).step(0.01)
+
+const directionalLight = new THREE.DirectionalLight(0xfff000, 0.5)
+directionalLight.position.set(1, 0.25, 0)
+scene.add(directionalLight)
+
+
+const hemisphereLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
+scene.add(hemisphereLight)
+
 
 /**
  * Camera
