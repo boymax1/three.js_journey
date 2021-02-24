@@ -4,7 +4,17 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import { Color } from 'three'
 
+<<<<<<< HEAD
+
+
+
+//
+
+
+        /**
+=======
 /**
+>>>>>>> parent of a5edf709 (Loading GLTF Files)
  * Base
  */
 // Debug
@@ -13,8 +23,19 @@ const gui = new dat.GUI({ width: 400 })
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+
+
 // Scene
 const scene = new THREE.Scene()
+
+const  gltfLoader = new GLTFLoader();
+gltfLoader.load(
+    '/models/ring.gltf',
+    (gltf) =>
+    {
+        scene.add(gltf.scene.children[0])
+    },
+)
 
 /**
  * Galaxy
@@ -112,8 +133,6 @@ gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange
 gui.addColor(parameters, 'insideColor').onFinishChange(generateGalaxy)
 gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy)
 
-
-
 /**
  * Sizes
  */
@@ -150,6 +169,9 @@ scene.add(camera)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+
+
+
 
 /**
  * Renderer

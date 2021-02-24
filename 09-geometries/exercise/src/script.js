@@ -1,7 +1,41 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+
+
+const loader = new GLTFLoader();
+
+// Load a glTF resource
+loader.load(
+	// resource URL
+	'/models/ring.gltf',
+	// called when the resource is loaded
+	function ( gltf ) {
+
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
 /**
  * Base
  */
@@ -14,25 +48,7 @@ const scene = new THREE.Scene()
 // Object
 const geometry = new THREE.BufferGeometry()
 
-const count = 50
-const positionsArray = new Float32Array(count * 3 * 3)
 
-for (let i = 0; i < count * 3 * 3; i++)
-{
-    positionsArray[i] = Math.random() - 0.5
-}
-
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
-geometry.setAttribute('position', positionsAttribute)
-
-//const geometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 4)
-const material = new THREE.MeshBasicMaterial({ 
-    color: 0xff0000,
-    wireframe: true 
-})
-
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
 
 // Sizes
 const sizes = {

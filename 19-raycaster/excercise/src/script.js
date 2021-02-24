@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
+import { Raycaster } from 'three'
 
 /**
  * Base
@@ -37,6 +38,7 @@ object3.position.x = 2
 
 scene.add(object1, object2, object3)
 
+
 /**
  * Sizes
  */
@@ -60,6 +62,16 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+const mouse = new THREE.Vector2()
+window.addEventListener('mousemove', (event) =>
+{
+    mouse.x = event.clientX / sizes.width * 2 - 1
+    mouse.y = - (event.clentYY / sizes.height) * 2 + 1
+})
+
+
+
+
 /**
  * Camera
  */
@@ -81,14 +93,44 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+
+const raycaster = new THREE.Raycaster()
+
 /**
  * Animate
  */
 const clock = new THREE.Clock()
 
+
+
+
 const tick = () =>
 {
+
     const elapsedTime = clock.getElapsedTime()
+
+    object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
+    object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
+    object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
+
+    //Raycaster
+    raycaster.setFromCamera(mouse, camera)
+
+
+     const objectsTester = [object1, object2, object3]
+     const intersects = raycaster.intersectObjects(objectsTester)
+
+    for(const object of objectsTester)
+    {
+        object.material.color.set('#ff0000')
+    }
+
+   for(const intersect of intersects)
+   {
+       intersect.object.material.color.set('#0000ff')
+   }
+
+
 
     // Update controls
     controls.update()
