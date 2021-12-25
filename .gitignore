@@ -31,6 +31,10 @@ yarn-error.log*
 04-webpack/static
 
 05-transform-objects/node_modules
+05-transform-objects/bundler
+05-transform-objects/static
+
+
 06-animations/node_modules
 18-galaxy-generator/excercise/src/script.js
 18-galaxy-generator/excercise/static/.DS_Store
