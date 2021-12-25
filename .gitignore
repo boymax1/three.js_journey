@@ -27,6 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 
 04-webpack/node_modules
+04-webpack/bundler
 04-webpack/static
 
 05-transform-objects/node_modules
