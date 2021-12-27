@@ -34,6 +34,9 @@ yarn-error.log*
 05-transform-objects/bundler
 05-transform-objects/static
 
+06-animations-objects/node_modules
+06-animations-objects/bundler
+06-animations-objects/static
 
 06-animations/node_modules
 18-galaxy-generator/excercise/src/script.js
