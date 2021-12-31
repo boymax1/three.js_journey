@@ -34,11 +34,17 @@ yarn-error.log*
 05-transform-objects/bundler
 05-transform-objects/static
 
-06-animations-objects/node_modules
-06-animations-objects/bundler
-06-animations-objects/static
+06-animations/node_modules
+06-animations/bundler
+06-animations/static
+
+07-cameras/node_modules
+07-cameras/bundler
+07-cameras/static
 
 06-animations/node_modules
 18-galaxy-generator/excercise/src/script.js
 18-galaxy-generator/excercise/static/.DS_Store
 20-physics/excersice/node_modules
+
+
