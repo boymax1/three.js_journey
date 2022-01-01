@@ -1,5 +1,7 @@
 import './style.css'
-import * as THREE from 'three'
+import * as THREE from 'three';
+import gsap from 'gsap'
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -36,10 +38,16 @@ renderer.setSize(sizes.width, sizes.height)
 //CLock
 const clock = new THREE.Clock();
 
+/**
+ * Animate
+ */
+ gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
+
 // Animations
 const tick = () => { 
 
     //Clock
+    // method will return how many seconds have passed since the Clock was created
     const elapsedTime = clock.getElapsedTime()
     console.log(elapsedTime);
 
@@ -54,9 +62,18 @@ const tick = () => {
     // // mesh.position.x += 0.01
     // mesh.rotation.y += 0.001 * deltaTime
 
-    mesh.rotation.y = elapsedTime
+    // mesh.rotation.y = elapsedTime
 
-    
+    // mesh.position.x = Math.cos(elapsedTime);
+    // mesh.position.y = Math.sin(elapsedTime);
+
+    // //cube looks to be stationary because camera moves with cube
+    // camera.position.x = Math.cos(elapsedTime);
+    // camera.position.y = Math.sin(elapsedTime);
+
+
+
+
     //render
     renderer.render(scene, camera)
     // tick is being called on each frame, 60fps
