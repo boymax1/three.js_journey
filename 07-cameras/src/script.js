@@ -1,10 +1,29 @@
 import './style.css'
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+
+// CURSOR
+const cursor = {
+    x: 0,
+    y: 0
+}
+window.addEventListener('mousemove', (event) => {
+    console.log(event.clientX, event.clientY)
+
+    // converting pixel nums to canvas nums... -0.5 to 0.5
+    cursor.x = event.clientX / sizes.width - 0.5
+    cursor.y = - (event.clientY / sizes.height - 0.5)
+
+})
+
+
 
 /**
  * Base
  */
 // Canvas
+
+
 const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
@@ -23,11 +42,18 @@ const mesh = new THREE.Mesh(
 )
 scene.add(mesh)
 
-// Camera
+// Camera (args are Vertical FOV, Aspect Ratio,
+// optional 2 last parameters are NEAR and FAR - how close and how far the camera can see )
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.x = 2
-camera.position.y = 2
-camera.position.z = 2
+
+// parameters are left, right, top, and bottom, then near and far
+// 
+
+// const aspectRatio = sizes.width / sizes.height;
+// const camera = new THREE.OrthographicCamera(-1 * aspectRatio, 1 * aspectRatio, 1, -1, 0.1, 100);
+// camera.position.x = 2
+// camera.position.y = 2
+camera.position.z = 3
 camera.lookAt(mesh.position)
 scene.add(camera)
 
@@ -45,7 +71,18 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    mesh.rotation.y = elapsedTime;
+    // mesh.rotation.y = elapsedTime;
+
+    // Updates camera based on mouse position
+    // camera.position.x = cursor.x * 5
+    // camera.position.y = cursor.y * 5
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2
+    camera.position.y = cursor.y * 3
+    
+    
+    //camera.lookAt(mesh.position)
+
 
     // Render
     renderer.render(scene, camera)
