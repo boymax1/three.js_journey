@@ -42,7 +42,10 @@ yarn-error.log*
 07-cameras/bundler
 07-cameras/static
 
-06-animations/node_modules
+08-fullscreen-and-resizing/node_modules
+08-fullscreen-and-resizing/bundler
+08-fullscreen-and-resizing/static
+
 18-galaxy-generator/excercise/src/script.js
 18-galaxy-generator/excercise/static/.DS_Store
 20-physics/excersice/node_modules
