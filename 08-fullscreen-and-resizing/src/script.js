@@ -23,9 +23,25 @@ scene.add(mesh)
  * Sizes
  */
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+//Resize canvas if window size is adjusted
+window.addEventListener('resize', () => {
+    console.log('window has been resized')
+    //update Sizes for Canvas
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    //update camera based on aspect ratio of canvas
+    camera.aspect = sizes.width / sizes.height
+    
+    camera.updateProjectionMatrix();
+
+    //update renderer upon window resize
+    renderer.setSize(sizes.width, sizes.height)
+})
 
 /**
  * Camera
