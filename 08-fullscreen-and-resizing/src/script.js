@@ -41,6 +41,13 @@ window.addEventListener('resize', () => {
 
     //update renderer upon window resize
     renderer.setSize(sizes.width, sizes.height)
+
+    // adjust pixel ratio for those with monitors above pixel ratio of 1.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+// allow window to go to fullscreen
+window.addEventListener('dblclick', () => {
+    console.log('double click')
 })
 
 /**
