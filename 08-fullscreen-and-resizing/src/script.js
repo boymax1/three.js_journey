@@ -2,14 +2,20 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
+
+
 /**
  * Base
  */
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+
+
 // Scene
 const scene = new THREE.Scene()
+
+
 
 /**
  * Object
@@ -19,6 +25,8 @@ const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
+
+
 /**
  * Sizes
  */
@@ -26,6 +34,7 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 }
+
 
 //Resize canvas if window size is adjusted
 window.addEventListener('resize', () => {
@@ -45,10 +54,39 @@ window.addEventListener('resize', () => {
     // adjust pixel ratio for those with monitors above pixel ratio of 1.
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
-// allow window to go to fullscreen
-window.addEventListener('dblclick', () => {
-    console.log('double click')
+
+
+// allow window to go to fullscreen on double click
+window.addEventListener('dblclick', () =>
+{
+    // supports safari browsers too....
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
+
+    if(!fullscreenElement)
+    {
+        if(canvas.requestFullscreen)
+        {
+            canvas.requestFullscreen()
+        }
+        else if(canvas.webkitRequestFullscreen)
+        {
+            canvas.webkitRequestFullscreen()
+        }
+    }
+    else
+    {
+        if(document.exitFullscreen)
+        {
+            document.exitFullscreen()
+        }
+        else if(document.webkitExitFullscreen)
+        {
+            document.webkitExitFullscreen()
+        }
+    }
 })
+
+
 
 /**
  * Camera
@@ -62,6 +100,8 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
+
+
 /**
  * Renderer
  */
@@ -69,6 +109,8 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
+
+
 
 /**
  * Animate
