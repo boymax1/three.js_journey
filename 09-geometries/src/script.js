@@ -12,8 +12,38 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Object
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+// const geometry = new THREE.BoxGeometry(1, 3, 3, 3, 3, 3)
+
+// vertex position information in an array
+const positionsArray = new Float32Array([
+    0, 0, 0,
+    0, 1, 0,
+    1, 0, 0
+])
+
+// convert FLoat32Array to BufferAttribute to use in 3JS
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
+// create a geometry using the array we created
+const geometry = new THREE.BufferGeometry()
+geometry.setAttribute('position', positionsAttribute)
+
+// positionsArray[0] = 0 //x
+// positionsArray[1] = 0 //y
+// positionsArray[2] = 0 //z of 1st vertex
+
+// positionsArray[3] = 0
+// positionsArray[4] = 1
+// positionsArray[5] = 0// 2nd vertex
+
+// positionsArray[6] = 1
+// positionsArray[7] = 0
+// positionsArray[8] = 0// 3rd vertex
+
+
+
+
+const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
@@ -72,3 +102,14 @@ const tick = () =>
 }
 
 tick()
+
+
+
+// Notes
+// geometries are made up of vertices in 3D space.
+// They are linked together to create faces or triangles
+
+// Each vertex will have a position x, y, z, UV coordinates, normals, color and any other info
+// Geometry class is the BufferGeometry
+// box, plane, circle, cone, cylinder, ring, torus, torusknot, dodecahedron...
+
