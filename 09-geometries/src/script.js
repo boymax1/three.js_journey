@@ -15,17 +15,28 @@ const scene = new THREE.Scene()
 // const geometry = new THREE.BoxGeometry(1, 3, 3, 3, 3, 3)
 
 // vertex position information in an array
-const positionsArray = new Float32Array([
-    0, 0, 0,
-    0, 1, 0,
-    1, 0, 0
-])
+// const positionsArray = new Float32Array([
+//     0, 0, 0,
+//     0, 1, 0,
+//     1, 0, 0
+// ])
 
 // convert FLoat32Array to BufferAttribute to use in 3JS
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
 
 // create a geometry using the array we created
 const geometry = new THREE.BufferGeometry()
+
+const count = 50
+// create an empty array
+const positionsArray = new Float32Array(count * 3 * 3) // 3 vertices w/ 3 values!!
+
+// add random values to each on of the elements in the array
+for (let i = 0; i < count * 3 * 3; i++) {
+    positionsArray[i] = (Math.random() - 0.5) * 4
+}
+
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
 geometry.setAttribute('position', positionsAttribute)
 
 // positionsArray[0] = 0 //x
