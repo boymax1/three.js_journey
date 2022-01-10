@@ -54,8 +54,8 @@ yarn-error.log*
 10-debug-ui/bundler
 10-debug-ui/static
 
-18-galaxy-generator/excercise/src/script.js
-18-galaxy-generator/excercise/static/.DS_Store
-20-physics/excersice/node_modules
+11-textures/node_modules
+11-textures/bundler
+11-textures/static
 
 
