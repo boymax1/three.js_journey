@@ -9,18 +9,31 @@ console.log(dat)
 
 
 // DEBUG
-const gui = new dat.GUI();
+const gui = new dat.GUI({closed: true, width: 400 });
+
+//All debug gui values need to be within an object!!!
+
+
 
 const parameters = {
-    color: 0xff0000
+    color: 0xff0000,
+    spin: () => {
+        // rotate box using greensock
+        // first param is how long()duration, 2nd param is destination y
+        gsap.to(mesh.rotation, {duration: 1, y: mesh.rotation.y + 10})
+    }
 }
 
 //first we add color to an object, then we access the color to use with GUI
+// dont forget to add the onChange event to actually change the color1
 gui
     .addColor(parameters, 'color')
     .onChange(() => {
         material.color.set(parameters.color)
     })
+
+gui
+    .add(parameters, 'spin')
 
 /**
  * Base
