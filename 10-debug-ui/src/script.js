@@ -1,7 +1,26 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import gsap from 'gsap'
+import gsap from 'gsap';
+import * as dat from 'lil-gui';
+import { CubicInterpolant } from 'three';
+
+console.log(dat)
+
+
+// DEBUG
+const gui = new dat.GUI();
+
+const parameters = {
+    color: 0xff0000
+}
+
+//first we add color to an object, then we access the color to use with GUI
+gui
+    .addColor(parameters, 'color')
+    .onChange(() => {
+        material.color.set(parameters.color)
+    })
 
 /**
  * Base
@@ -18,8 +37,29 @@ const scene = new THREE.Scene()
 const geometry = new THREE.BoxGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material)
+
 scene.add(mesh)
 
+// DEBug after instantiating object (has to be an object)
+// gui.add(mesh.position, 'y', -3, 3, 0.01) // tweak y position, then min value and max value, then increment step/precition value
+// same thing, different way to write... 
+gui
+    .add(mesh.position, 'y')
+    .min(- 3)
+    .max(3)
+    .step(0.01)
+    .name('elevation') // name labels
+
+gui
+    .add(mesh, 'visible') // boolean for visible or not checkbox
+
+gui
+    .add(material, 'wireframe') // boolean for visible wireframe
+
+
+
+gui.add(mesh.position, 'x', -3, 3, 0.01)
+gui.add(mesh.position, 'z', -3, 3, 0.01)
 /**
  * Sizes
  */
