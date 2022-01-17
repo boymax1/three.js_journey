@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { NearestMipmapNearestFilter } from 'three'
 // import imageSource from './image.png'
 
 
@@ -34,7 +35,8 @@ loadingManager.onError = () =>
     console.log('loading error')
 }
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const colorTexture = textureLoader.load('/textures/door/color.jpg');
+//const colorTexture = textureLoader.load('/textures/door/color.jpg');
+const colorTexture = textureLoader.load('/textures/checkerboard-1024x1024.png');
 const alphaTexture = textureLoader.load('/textures/door/alpha.jpg');
 const heightTexture = textureLoader.load('/textures/door/height.jpg');
 const normalTexture = textureLoader.load('/textures/door/normal.jpg');
@@ -57,8 +59,17 @@ const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
 // colorTexture.center.x = 0.5
 // colorTexture.center.y = 0.5
 
+// Minification filter
+// The minification filter happens when the pixels of
+// texture are smaller than the pixels of the render.
+//In other words, the texture is too big for the surface, it covers.
 
+// You can change the minification filter of the texture
+// using the minFilter property.
 
+colorTexture.generateMipmaps = false;
+colorTexture.miniFilter = THREE.NearestFilter;
+colorTexture.magFilter = THREE.NearestFilter;
 
 
 /**
