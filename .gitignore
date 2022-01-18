@@ -58,4 +58,8 @@ yarn-error.log*
 11-textures/bundler
 11-textures/static
 
+12-materials/node_modules
+12-materials/bundler
+12-materials/static
+
 
