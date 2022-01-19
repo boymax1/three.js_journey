@@ -28,6 +28,17 @@ const scene = new THREE.Scene()
 
 //Objects
 const material = new THREE.MeshBasicMaterial()
+material.map = doorColorTexture
+
+material.color = new THREE.Color('#ff0000')
+material.color = new THREE.Color('#f00')
+material.color = new THREE.Color('red')
+material.color = new THREE.Color('rgb(255, 0, 0)')
+material.color = new THREE.Color(0xff0000)
+
+// material.wireframe = true
+material.transparent = true
+material.opacity = 0.2
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
