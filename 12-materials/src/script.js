@@ -27,18 +27,31 @@ const scene = new THREE.Scene()
 
 
 //Objects
-const material = new THREE.MeshBasicMaterial()
-material.map = doorColorTexture
+//const material = new THREE.MeshBasicMaterial()
+// material.map = doorColorTexture
 
-material.color = new THREE.Color('#ff0000')
-material.color = new THREE.Color('#f00')
-material.color = new THREE.Color('red')
-material.color = new THREE.Color('rgb(255, 0, 0)')
-material.color = new THREE.Color(0xff0000)
-
+// material.color = new THREE.Color('#ff0000')
+// material.color = new THREE.Color('#f00')
+// material.color = new THREE.Color('red')
+// material.color = new THREE.Color('rgb(255, 0, 0)')
+// material.color = new THREE.Color(0xff0000)
+// material.transparent = true
+// material.alphaMap = doorAlphaTexture
+// material.side = THREE.DoubleSide
 // material.wireframe = true
-material.transparent = true
-material.opacity = 0.2
+
+// Normals are information encoded in each vertex that
+// contains the direction of the outside of the face.
+//If you displayed those normals as arrows,
+// you would get straight lines comings out of each
+// vertex that composes your geometry.
+const material = new THREE.MeshNormalMaterial()
+
+// will flatten the faces, meaning that the normals won't be
+// interpolated between the vertices.
+material.flatShading = true
+
+material.opacity = 0.5
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
