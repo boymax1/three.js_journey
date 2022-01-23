@@ -1,6 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'dat.gui'
+
+const gui = new dat.GUI()
+
 
 //Textures
 const textureLoader = new THREE.TextureLoader()
@@ -12,9 +16,16 @@ const doorHeightTexture = textureLoader.load('/textures/door/height.jpg')
 const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
 const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
 const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
-const matcapTexture = textureLoader.load('/textures/matcaps/1.png')
-const gradientTexture = textureLoader.load('/textures/gradients/3.jpg')
+const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
 
+//  const gradientTexture = textureLoader.load('/textures/gradients/3.jpg')
+// gradientTexture.minFilter = THREE.NearestFilter
+// gradientTexture.magFilter = THREE.NearestFilter
+// gradientTexture.generateMipmaps = false
+
+const material = new THREE.MeshStandardMaterial
+material.metalness = 0.45
+material.roughness = 0.65
 
 /**
  * Base
@@ -45,13 +56,42 @@ const scene = new THREE.Scene()
 //If you displayed those normals as arrows,
 // you would get straight lines comings out of each
 // vertex that composes your geometry.
-const material = new THREE.MeshNormalMaterial()
+// const material = new THREE.MeshMatcapMaterial();
+//material.matcap = matcapTexture
+
+
+
+
+
+// Simulate Lighting on the texture or material using MatCap.
+// Way more effiecient than actual lignhting
+
+// onst material = new THREE.MeshToonMaterial()
+// material.gradientMap = gradientTexture
+
+
+
+
+// const matcapTexture = textureLoader.load('/textures/matcaps/2.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/3.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/4.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/5.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/6.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/7.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
+
+
+
+// Closer to camera is lighter-brighter, and further from camera will be darker
+// const material = new THREE.MeshDepthMaterial()
+
 
 // will flatten the faces, meaning that the normals won't be
 // interpolated between the vertices.
-material.flatShading = true
+// material.flatShading = true
 
 material.opacity = 0.5
+material.map = doorColorTexture
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
@@ -70,6 +110,20 @@ const torus = new THREE.Mesh(
 torus.position.x = 1.5
 
 scene.add(sphere, plane, torus)
+
+gui.add(material, 'metalness').min(0).max(1).step(0.0001)
+gui.add(material, 'roughness').min(0).max(1).step(0.0001)
+
+//Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
+
+const pointLight = new THREE.PointLight(0xffffff, 0.5)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
+
 
 /**
  * Sizes
