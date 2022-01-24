@@ -90,26 +90,62 @@ const scene = new THREE.Scene()
 // interpolated between the vertices.
 // material.flatShading = true
 
+const environmentMapTexture = cubeTextureLoader.load([
+    '/textures/environmentMaps/0/px.jpg',
+    '/textures/environmentMaps/0/nx.jpg',
+    '/textures/environmentMaps/0/py.jpg',
+    '/textures/environmentMaps/0/ny.jpg',
+    '/textures/environmentMaps/0/pz.jpg',
+    '/textures/environmentMaps/0/nz.jpg'
+])
+
 material.opacity = 0.5
 material.map = doorColorTexture
 
+material.aoMap = doorAmbientOcclusionTexture
+material.aoMapIntensity = 1
+
+material.metalnessMap = doorMetalnessTexture
+material.roughnessMap = doorRoughnessTexture
+
+material.metalness = 0
+material.roughness = 1
+
+material.normalMap = doorNormalTexture
+
+material.normalScale.set(0.5, 0.5)
+
+material.transparent = true
+material.alphaMap = doorAlphaTexture
+
+material.envMap = environmentMapTexture
+
+// material.displacementMap = doorHeightTexture
+
 const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 16, 16),
+    new THREE.SphereGeometry(0.5, 64, 64),
     material
 )
 sphere.position.x = -1.5
 
 const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(1, 1, 100, 100),
     material
 )
+
 const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+    new THREE.TorusGeometry(0.3, 0.2, 64, 128),
     material
 )
 torus.position.x = 1.5
 
+sphere.geometry.setAttribute('uv2', new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2))
+plane.geometry.setAttribute('uv2', new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2))
+torus.geometry.setAttribute('uv2', new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2))
+
 scene.add(sphere, plane, torus)
+
+
 
 gui.add(material, 'metalness').min(0).max(1).step(0.0001)
 gui.add(material, 'roughness').min(0).max(1).step(0.0001)
