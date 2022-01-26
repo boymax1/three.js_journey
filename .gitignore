@@ -62,4 +62,9 @@ yarn-error.log*
 12-materials/bundler
 12-materials/static
 
+13-3d-text/node_modules
+13-3d-text/bundler
+13-3d-text/static
+
+
 
