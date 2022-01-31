@@ -21,14 +21,29 @@ fontLoader.load(
                 font: font,
                 size: 0.5,
                 height: 0.2,
-                curveSegments: 12,
+                curveSegments: 5,
                 bevelEnabled: true,
                 bevelThickness: 0.03,
                 bevelSize: 0.02,
                 bevelOffset: 0,
-                bevelSegments: 5
+                bevelSegments: 3
             }
         )
+
+    //     textGeometry.computeBoundingBox()
+
+    //  textGeometry.translate(
+    //  (textGeometry.boundingBox.max.x - 0.02) * 0.5, // Subtract bevel size
+    // - (textGeometry.boundingBox.max.y - 0.02) * 0.5, // Subtract bevel size
+    // - (textGeometry.boundingBox.max.z - 0.03) * 0.5  // Subtract bevel thickness
+    //     )
+
+
+        textGeometry.center()
+        const axesHelper = new THREE.AxesHelper()
+        scene.add(axesHelper)
+
+
         const textMaterial = new THREE.MeshBasicMaterial({wireframe: true})
         const text = new THREE.Mesh(textGeometry, textMaterial)
         scene.add(text)
@@ -37,11 +52,17 @@ fontLoader.load(
 
 
 
+
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
+
+
 /**
  * Base
  */
 // Debug
 const gui = new dat.GUI()
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -49,10 +70,12 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+
 
 /**
  * Object
@@ -63,6 +86,11 @@ const cube = new THREE.Mesh(
 )
 
 //scene.add(cube)
+
+//frustum culling
+// Calculating if object is on the screen or not.
+// If object is in the screen it will be rendered, if not, not going to render something that is not seen
+
 
 /**
  * Sizes
