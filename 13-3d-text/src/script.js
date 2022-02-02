@@ -44,9 +44,35 @@ fontLoader.load(
         scene.add(axesHelper)
 
 
-        const textMaterial = new THREE.MeshBasicMaterial({wireframe: true})
+        //const textMaterial = new THREE.MeshBasicMaterial({wireframe: true})
+        
+        //Load texture
+        const matcapTexture = textureLoader.load('/textures/matcaps/1.png')
+        //create the Material
+        const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+        
         const text = new THREE.Mesh(textGeometry, textMaterial)
         scene.add(text)
+
+        const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
+        const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+
+        for (let i = 0; i < 500; i++) {
+            
+            const donut = new THREE.Mesh(donutGeometry, donutMaterial)
+
+            donut.position.x = (Math.random() - 0.5) * 10
+            donut.position.y = (Math.random() - 0.5) * 10
+            donut.position.z = (Math.random() - 0.5) * 10
+
+            donut.rotation.x = Math.random() * Math.PI
+            donut.rotation.y = Math.random() * Math.PI
+
+            scene.add(donut)
+
+            
+        }
+
     }
 )
 
