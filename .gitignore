@@ -67,4 +67,6 @@ yarn-error.log*
 13-3d-text/static
 
 
-
+15-lights/node_modules
+15-lights/bundler
+15-lights/static
