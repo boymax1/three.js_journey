@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js'
 
 /**
  * Base
@@ -52,6 +53,7 @@ spotLight.target.position.x = - 0.75
 scene.add(spotLight)
 scene.add(spotLight.target)
 
+//Light Helpers
 const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2)
 scene.add(hemisphereLightHelper)
 
@@ -60,6 +62,20 @@ scene.add(directionalLightHelper)
 
 const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2)
 scene.add(pointLightHelper)
+
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
+//bug, so we have to update it on every frame
+window.requestAnimationFrame(() =>
+{
+    spotLightHelper.update()
+})
+
+
+//needs to be imported first to use the rectAreaLightHelper
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 
 gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
