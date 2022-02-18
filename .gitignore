@@ -70,3 +70,7 @@ yarn-error.log*
 15-lights/node_modules
 15-lights/bundler
 15-lights/static
+
+16-shadows/node_modules
+16-shadows/bundler
+16-shadows/static
