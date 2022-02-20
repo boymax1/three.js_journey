@@ -9,11 +9,14 @@ import * as dat from 'lil-gui'
 // Debug
 const gui = new dat.GUI()
 
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+
 // Scene
 const scene = new THREE.Scene()
+
 
 /**
  * Lights
@@ -23,6 +26,8 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
 gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
 scene.add(ambientLight)
 
+
+
 // Directional light
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
 directionalLight.position.set(2, 2, - 1)
@@ -31,6 +36,7 @@ gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001)
 gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001)
 gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001)
 scene.add(directionalLight)
+
 
 /**
  * Materials
@@ -57,6 +63,7 @@ plane.position.y = - 0.5
 
 scene.add(sphere, plane)
 
+
 /**
  * Sizes
  */
@@ -80,6 +87,7 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+
 /**
  * Camera
  */
@@ -94,6 +102,7 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
+
 /**
  * Renderer
  */
@@ -102,6 +111,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
 
 /**
  * Animate
