@@ -11,6 +11,14 @@ import { DirectionalLightHelper } from 'three'
 // Debug
 const gui = new dat.GUI()
 
+// Textures
+const textureLoader = new THREE.TextureLoader()
+const bakedShadow = textureLoader.load('/textures/bakedShadow.jpg')
+const simpleShadow = textureLoader.load('/textures/simpleShadow.jpg')
+console.log('simpleShadow')
+
+
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -173,7 +181,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // Simply tells our renderer to handle shadow maps
-renderer.shadowMap.enabled = true
+renderer.shadowMap.enabled = false
 
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
