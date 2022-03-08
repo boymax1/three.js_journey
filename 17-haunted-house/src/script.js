@@ -29,7 +29,30 @@ const sphere = new THREE.Mesh(
     new THREE.MeshStandardMaterial({ roughness: 0.7 })
 )
 sphere.position.y = 1
-scene.add(sphere)
+// scene.add(sphere)
+
+//House containter
+const house = new THREE.Group()
+scene.add(house)
+
+const walls = new THREE.Mesh(
+    new THREE.BoxGeometry(4, 2.5, 4),
+    new THREE.MeshStandardMaterial({ color: '#ax8e82'})
+)
+walls.position.y = 1.25
+house.add(walls)
+
+// Roof
+const roof = new THREE.Mesh(
+    new THREE.ConeGeometry(3.5, 1, 4),
+    new THREE.MeshStandardMaterial({ color: '#b35f45' })
+)
+roof.rotation.y = Math.PI * 0.25
+roof.position.y = 2.5 + 0.5
+house.add(roof)
+
+
+
 
 // Floor
 const floor = new THREE.Mesh(
