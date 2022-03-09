@@ -141,6 +141,20 @@ const tick = () =>
     // Update controls
     controls.update()
 
+    //Update particles
+    // particles.rotation.y = elapsedTime * 0.2
+    for(let i = 0; i < count; i++) {
+        const i3 = i * 3
+
+        const x = particlesGeometry.attributes.position.array[i3]
+        particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(elapsedTime + x)
+        // The y coordinate can be access in the array at the index i3 + 1:
+       // particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(elapsedTime)
+    }
+    // The problem is that Three.js has to be notified that the geometry changed
+    particlesGeometry.attributes.position.needsUpdate = true 
+
+
     // Render
     renderer.render(scene, camera)
 
