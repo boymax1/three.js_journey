@@ -66,7 +66,6 @@ yarn-error.log*
 13-3d-text/bundler
 13-3d-text/static
 
-
 15-lights/node_modules
 15-lights/bundler
 15-lights/static
@@ -78,3 +77,7 @@ yarn-error.log*
 17-haunted-house/node_modules
 17-haunted-house/bundler
 17-haunted-house/static
+
+18-particles/node_modules
+18-particles/bundler
+18-particles/static
