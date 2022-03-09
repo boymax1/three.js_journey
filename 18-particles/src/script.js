@@ -15,10 +15,13 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+
+
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const particleTexture = textureLoader.load('/textures/particles/13.png')
 
 /**
  * Test cube
@@ -27,7 +30,42 @@ const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshBasicMaterial()
 )
-scene.add(cube)
+
+/**
+    Particls
+ **/
+
+// Geometry
+const particlesSphereGeometry = new THREE.SphereBufferGeometry(1, 32, 32);
+
+// Creating a custome Geometry
+const particlesGeometry = new THREE.BufferGeometry()
+const count = 5000
+
+const positions = new Float32Array(count * 3) // x, y, z
+
+for (let i = 0; i < count * 3; i++) { // Multiply by 3 cause, x, y, z
+    positions[i] = (Math.random() - 0.5) * 10 // Math.random() -0.5 creates value between -0.5 and +0.5
+}
+
+// Create the Three.js BufferAttribute and specify that each information is composed of 3 values
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) 
+
+
+//Material
+const particlesMaterial = new THREE.PointsMaterial({
+    size: 0.1,
+    sizeAttenuation: true
+})
+particlesMaterial.color = new THREE.Color('#ff88cc');
+
+particlesMaterial.map = particleTexture
+
+// Points
+// Creates the particles (in a sphere shape cause of SphereBufferGeometry)
+const particles = new THREE.Points(particlesGeometry, particlesMaterial)
+scene.add(particles)
+
 
 /**
  * Sizes
