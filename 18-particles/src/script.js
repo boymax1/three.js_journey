@@ -21,7 +21,7 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/13.png')
+const particleTexture = textureLoader.load('/textures/particles/2.png')
 
 /**
  * Test cube
@@ -30,36 +30,54 @@ const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshBasicMaterial()
 )
+// scene.add(cube)
 
 /**
-    Particls
+    Particles
  **/
 
 // Geometry
 const particlesSphereGeometry = new THREE.SphereBufferGeometry(1, 32, 32);
 
 // Creating a custome Geometry
-const particlesGeometry = new THREE.BufferGeometry()
-const count = 5000
+const particlesGeometry = new THREE.BufferGeometry() //<<<<<<---------
+const count = 20000
 
 const positions = new Float32Array(count * 3) // x, y, z
+const colors = new Float32Array(count * 3)
 
 for (let i = 0; i < count * 3; i++) { // Multiply by 3 cause, x, y, z
     positions[i] = (Math.random() - 0.5) * 10 // Math.random() -0.5 creates value between -0.5 and +0.5
+    // create random red, green, blue value for each particle
+    colors[i] = Math.random()
 }
 
 // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) 
 
+particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
 //Material
 const particlesMaterial = new THREE.PointsMaterial({
     size: 0.1,
     sizeAttenuation: true
 })
-particlesMaterial.color = new THREE.Color('#ff88cc');
+// activate vertexColors
+particlesMaterial.vertexColors = true;
+
+// particlesMaterial.color = new THREE.Color('#ff88cc');
 
 particlesMaterial.map = particleTexture
+// Making texture transparent inorder to see thrugh it...
+particlesMaterial.transparent = true;
+particlesMaterial.alphaMap = particleTexture
+// particlesMaterial.alphaTest = 0.001
+// particlesMaterial.depthTest = false
+particlesMaterial.depthWrite = false
+//  use blending to add the color of that pixel to the color of the pixel already drawn
+particlesMaterial.blending = THREE.AdditiveBlending;
+
+
 
 // Points
 // Creates the particles (in a sphere shape cause of SphereBufferGeometry)
