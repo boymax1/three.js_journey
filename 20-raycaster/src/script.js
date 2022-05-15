@@ -37,10 +37,16 @@ object3.position.x = 2
 
 scene.add(object1, object2, object3)
 
+
+// a Raycaster can cast (or shoot) a ray in a
+// specific direction and test what objects intersect with it.
+
 // Raycaster
 
 const raycaster = new THREE.Raycaster()
 
+//vector3
+raycaster.set()
 
 
 
